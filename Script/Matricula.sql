@@ -18,19 +18,19 @@ create table usuario
 	edad int NOT NULL CHECK (edad > 0),
 	provincia varchar(20) NOT NULL,
 	residencia varchar(50) NOT NULL,
-	teléfono int NOT NULL CHECK (teléfono > 0),
+	telefono varchar(8) NOT NULL,
 	fechaCreacion date NOT NULL,
 	PRIMARY KEY (cedula)
 );
 
-create table estudiantes
+create table estudiante
 (
 	gradosCursados int NOT NULL CHECK (gradosCursados > 0),
 	periodo int NOT NULL CHECK (periodo > 0),
 	cursoActual varchar(50) NOT NULL,
 	estadoPeriodo varchar(20) NOT NULL,
 	cedulaEstudiante int,
-	PRIMARY KEY (gradosCursados),
+	PRIMARY KEY (cedulaEstudiante),
 	FOREIGN KEY (cedulaEstudiante) REFERENCES usuario(cedula)
 );
 
@@ -45,10 +45,10 @@ create table periodoLectivo
 	cursosPendientes int NOT NULL CHECK (cursosPendientes > 0),
 	gradosAnteriores int,
 	PRIMARY KEY (numeroPeriodo),
-	FOREIGN KEY (gradosAnteriores) REFERENCES estudiantes(gradosCursados)
+	FOREIGN KEY (gradosAnteriores) REFERENCES estudiante(gradosCursados)
 );
 
-create table HorarioClases
+create table horarioClases
 (
 	curso varchar(30) NOT NULL,
 	aula int NOT NULL CHECK (aula > 0),
@@ -59,15 +59,15 @@ create table HorarioClases
 	FOREIGN KEY (periodoActual) REFERENCES periodoLectivo(numeroPeriodo)
 );
 
-create table padres
+create table padre
 (
 	profesion varchar(30) NOT NULL,
-	conyugue varchar(60) NOT NULL,
-	telefonoConyugue int NOT NULL CHECK (telefonoConyugue > 0),
+	conyugue varchar(60),
+	telefonoConyugue varchar(8),
 	costoMensualidad money NOT NULL,
 	pagosRealizados int NOT NULL,
-	cedulaPadre int,
-	PRIMARY KEY (profesion),
+	cedulaPadre int NOT NULL,
+	PRIMARY KEY (cedulaPadre),
 	FOREIGN KEY (cedulaPadre) REFERENCES usuario(cedula)
 );
 
@@ -79,7 +79,7 @@ create table matricula
 	montoMatricula money NOT NULL,
 	profesionPadre varchar(30),
 	PRIMARY KEY(cedulaEstudiante),
-	FOREIGN KEY (profesionPadre) REFERENCES padres(profesion)
+	FOREIGN KEY (profesionPadre) REFERENCES padre(profesion)
 );
 
 create table factura
@@ -87,21 +87,21 @@ create table factura
 	cedulaPadre int NOT NULL CHECK (cedulaPadre > 0),
 	fechaPago date NOT NULL,
 	montoTotal money NOT NULL,
-	cedulaEstudiante int,
+	cedulaEstudiante int NOT NULL,
 	PRIMARY KEY (cedulaPadre),
 	FOREIGN KEY (cedulaEstudiante) REFERENCES matricula(cedulaEstudiante)
 );
 
-create table profesores
+create table profesor
 (
 	materiaImpartida varchar(30) NOT NULL,
 	salario money NOT NULL,
 	cedulaProfesor int,
-	PRIMARY KEY (materiaImpartida),
+	PRIMARY KEY (cedulaProfesor),
 	FOREIGN KEY (cedulaProfesor) REFERENCES usuario(cedula)
 );
 
-create table grupos
+create table grupo
 (
 	codigoGrupo int NOT NULL CHECK (codigoGrupo > 0),
 	profesor varchar(80) NOT NULL,
@@ -109,7 +109,6 @@ create table grupos
 	cupos int NOT NULL CHECK (cupos > 0),
 	materia varchar(30) NOT NULL,
 	grado int NOT NULL CHECK (grado > 0),
-	nombre varchar(30),
 	PRIMARY KEY (codigoGrupo),
-	FOREIGN KEY (nombre) REFERENCES profesores(materiaImpartida)
+	FOREIGN KEY (materia) REFERENCES profesor(materiaImpartida)
 );
