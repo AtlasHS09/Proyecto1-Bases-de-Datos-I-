@@ -158,3 +158,36 @@ create table factura
 	FOREIGN KEY (cedulaEstudiante, periodo, año) REFERENCES matricula(cedulaEstudiante, periodoMatricular, año)
 );
 
+---------------------------Creación de Vistas--------------------------------------------------
+
+GO
+
+CREATE VIEW informacionEvaluaciones as --Lanza información general de las evaluaciones (Profesores)
+	(SELECT evaluacion, porcentaje FROM [dbo].[evaluaciones], [dbo].[horarioClases]
+		WHERE CodigoCurso = curso)
+
+GO
+
+CREATE VIEW controlCobrosAdeudados as --Lanza información de los pagos necesarios por estudiante (Padres)
+	(SELECT cobrosPendientes, montoMatricula, costoMensualidad, pagosRealizados FROM [dbo].[matricula], [dbo].[padre]
+		WHERE [dbo].[padre].[cedulaPadre] = [dbo].[matricula].[cedulaPadre])
+
+GO
+
+CREATE VIEW informacionEstudiante as --Lanza información general de los estudiantes (padres)
+	(SELECT [dbo].[estudiante].[cedulaEstudiante], gradosCursados, grupo, cursoActual FROM [dbo].[estudiante], [dbo].[matricula]
+		WHERE [dbo].[estudiante].[cedulaEstudiante] = [dbo].[matricula].[cedulaEstudiante])
+
+GO
+
+CREATE VIEW informacionGradoEstudiante as --Lanza información general del grado cursado (estudiantes)
+	(SELECT gradosCursados, grupo, periodo, cursoActual FROM [dbo].[estudiante], [dbo].[matricula]
+		WHERE [dbo].[estudiante].[cedulaEstudiante] = [dbo].[matricula].[cedulaEstudiante])
+
+GO
+
+CREATE VIEW informacionCurso as --Lanza información general del curso y el horario del estudiante (estudiantes)
+	(SELECT CodigoCurso, NombreCurso, aula, cedulaProfesor  FROM [dbo].[horarioClases], [dbo].[grupo]
+	 WHERE materia = NombreCurso)
+
+
