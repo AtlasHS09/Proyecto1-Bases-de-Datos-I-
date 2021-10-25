@@ -32,6 +32,33 @@ create table usuario
 	PRIMARY KEY (cedula)
 );
 
+--Tabla que posee la información de un usuario de categoría profesor.
+
+create table profesor
+(
+	cedulaProfesor int,
+	materiaImpartida varchar(30) NOT NULL,
+	salario money NOT NULL,
+	PRIMARY KEY (cedulaProfesor),
+	FOREIGN KEY (cedulaProfesor) REFERENCES usuario(cedula)
+);
+
+--Tabla que posee la información del grupo que va a manejar el profesor a cargo.
+
+create table grupo
+(
+	codigoGrupo int NOT NULL CHECK (codigoGrupo > 0),
+	profesor varchar(80) NOT NULL,
+	periodo int NOT NULL CHECK (periodo > 0),
+	cupo int NOT NULL CHECK (cupo > 0),
+	materia varchar(30) NOT NULL,
+	grado int NOT NULL CHECK (grado > 0),
+	notaMinima int NOT NULL CHECK (notaMinima > 0),
+	cedulaProfesor int,
+	PRIMARY KEY (codigoGrupo),
+	FOREIGN KEY (cedulaProfesor) REFERENCES profesor(cedulaProfesor)
+);
+
 --Tabla que posee la información de un usuario de categoría estudiante.
 
 create table estudiante
@@ -41,8 +68,10 @@ create table estudiante
 	periodo int NOT NULL CHECK (periodo > 0),
 	cursoActual varchar(50) NOT NULL,
 	estadoPeriodo varchar(20) NOT NULL,
+	grupo int NOT NULL,
 	PRIMARY KEY (cedulaEstudiante),
-	FOREIGN KEY (cedulaEstudiante) REFERENCES usuario(cedula)
+	FOREIGN KEY (cedulaEstudiante) REFERENCES usuario(cedula),
+	FOREIGN KEY (grupo) REFERENCES grupo(codigoGrupo)
 );
 
 --Tabla que posee la información del periodo lectivo en el que se encuentra el estudiante.
@@ -53,25 +82,27 @@ create table periodoLectivo
 	año int NOT NULL CHECK (año < 2021),
 	fechaInicio date NOT NULL,
 	fechaFinal date NOT NULL,
-	periodoAbierto int NOT NULL CHECK (periodoAbierto > 0),
-	cursosCerrados int NOT NULL CHECK (cursosCerrados > 0),
-	cursosPendientes int NOT NULL CHECK (cursosPendientes > 0),
-	gradosAnteriores int,
-	PRIMARY KEY (numeroPeriodo),
-	FOREIGN KEY (gradosAnteriores) REFERENCES estudiante(cedulaEstudiante)
+	cursoCerrado varchar(20) NOT NULL,
+	cursoPendiente varchar(20) NOT NULL,
+	cedulaEstudiante int NOT NULL,
+	PRIMARY KEY (numeroPeriodo, año),
+	FOREIGN KEY (cedulaEstudiante) REFERENCES estudiante(cedulaEstudiante)
 );
 
 --Tabla que posee la información del horario de clases de cada estudiante.
 
 create table horarioClases
 (
-	curso varchar(30) NOT NULL,
+	CodigoCurso int NOT NULL,
+	NombreCurso varchar(20) NOT NULL,
+	periodoActual int NOT NULL,
+	año int NOT NULL,
 	aula int NOT NULL CHECK (aula > 0),
-	profesor varchar(80) NOT NULL,
-	matrizEvaluaciones varchar(100) NOT NULL,
-	periodoActual int,
-	PRIMARY KEY (curso),
-	FOREIGN KEY (periodoActual) REFERENCES periodoLectivo(numeroPeriodo)
+	profesor int NOT NULL,
+	PRIMARY KEY (CodigoCurso),
+	FOREIGN KEY (periodoActual, año) REFERENCES periodoLectivo(numeroPeriodo, año),
+	FOREIGN KEY (profesor) REFERENCES profesor(cedulaProfesor)
+
 );
 
 --Tabla de posee la tabla de evaluaciones de los cursos del colegio
@@ -80,8 +111,8 @@ create table evaluaciones
 (
 	evaluacion varchar(30) NOT NULL,
 	porcentaje int NOT NULL CHECK (porcentaje BETWEEN 1 AND 100),
-	curso varchar(30),
-	FOREIGN KEY (curso) REFERENCES horarioClases(curso)
+	curso int,
+	FOREIGN KEY (curso) REFERENCES horarioClases(CodigoCurso)
 );
 
 --Tabla que posee la información de un usuario de categoría padre.
@@ -104,11 +135,12 @@ create table matricula
 (
 	cedulaEstudiante int NOT NULL CHECK (cedulaEstudiante > 0),
 	periodoMatricular int NOT NULL CHECK (periodoMatricular > 0),
+	año int NOT NULL CHECK (año > 0),
 	cobrosPendientes int NOT NULL CHECK (cobrosPendientes > 0),
 	montoMatricula money NOT NULL,
 	profesionPadre varchar(30),
 	cedulaPadre int,
-	PRIMARY KEY(cedulaEstudiante),
+	PRIMARY KEY(cedulaEstudiante, periodoMatricular, año),
 	FOREIGN KEY (cedulaPadre) REFERENCES padre(cedulaPadre)
 );
 
@@ -117,35 +149,12 @@ create table matricula
 create table factura
 (
 	cedulaPadre int NOT NULL CHECK (cedulaPadre > 0),
+	periodo int NOT NULL,
+	año int NOT NULL,
 	fechaPago date NOT NULL,
 	montoTotal money NOT NULL,
 	cedulaEstudiante int NOT NULL,
 	PRIMARY KEY (cedulaPadre),
-	FOREIGN KEY (cedulaEstudiante) REFERENCES matricula(cedulaEstudiante)
+	FOREIGN KEY (cedulaEstudiante, periodo, año) REFERENCES matricula(cedulaEstudiante, periodoMatricular, año)
 );
 
---Tabla que posee la información de un usuario de categoría profesor.
-
-create table profesor
-(
-	cedulaProfesor int,
-	materiaImpartida varchar(30) NOT NULL,
-	salario money NOT NULL,
-	PRIMARY KEY (cedulaProfesor),
-	FOREIGN KEY (cedulaProfesor) REFERENCES usuario(cedula)
-);
-
---Tabla que posee la información del grupo que va a manejar el profesor a cargo.
-
-create table grupo
-(
-	codigoGrupo int NOT NULL CHECK (codigoGrupo > 0),
-	profesor varchar(80) NOT NULL,
-	periodo int NOT NULL CHECK (periodo > 0),
-	cupos int NOT NULL CHECK (cupos > 0),
-	materia varchar(30) NOT NULL,
-	grado int NOT NULL CHECK (grado > 0),
-	cedulaProfesor int,
-	PRIMARY KEY (codigoGrupo),
-	FOREIGN KEY (cedulaProfesor) REFERENCES profesor(cedulaProfesor)
-);
