@@ -1,0 +1,53 @@
+@model IEnumerable<WebMatricula.Entities.HorarioClase>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCurso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PeriodoLectivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfesorNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCurso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PeriodoLectivo.CursoCerrado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfesorNavigation.MateriaImpartida)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodigoCurso">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodigoCurso">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodigoCurso">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

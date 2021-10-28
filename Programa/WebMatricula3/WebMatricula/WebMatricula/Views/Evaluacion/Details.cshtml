@@ -1,0 +1,36 @@
+@model WebMatricula.Entities.Evaluacion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Evaluacion</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Evaluacion1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Evaluacion1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Porcentaje)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Porcentaje)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CursoNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CursoNavigation.NombreCurso)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CodigoEvaluacion">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

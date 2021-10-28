@@ -1,0 +1,65 @@
+@model IEnumerable<WebMatricula.Entities.Estudiante>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GradosCursados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Periodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CursoActual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoPeriodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaEstudianteNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrupoNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradosCursados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Periodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CursoActual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoPeriodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaEstudianteNavigation.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrupoNavigation.Materia)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CedulaEstudiante">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CedulaEstudiante">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CedulaEstudiante">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

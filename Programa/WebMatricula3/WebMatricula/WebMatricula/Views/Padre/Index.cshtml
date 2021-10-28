@@ -1,0 +1,65 @@
+@model IEnumerable<WebMatricula.Entities.Padre>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Profesion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Conyugue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoConyugue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostoMensualidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagosRealizados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaPadreNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conyugue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoConyugue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostoMensualidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PagosRealizados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaPadreNavigation.NombreCompleto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CedulaPadre">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CedulaPadre">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CedulaPadre">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
