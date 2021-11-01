@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rbNFVhzrAF9x5HnL6RuqQEfjai/W7bJDXKJLnw5GdME2I2+XCtdDsQ57etBCaZg5lIWwBsD2prb9vHj9DWIHDw==",
+  "dgSpecHash": "9YDAvYrEh0DptszcckJdVOeY+5ZqaC9vcSJJ2ATFy+H8cCcHSuf9zSYeu5t5Lkm4sKTMHtZL4Px8VAy8NkN1ng==",
   "success": true,
-  "projectFilePath": "/home/andres/Documents/Bases de Datos/WebMatricula 3/WebMatricula/WebMatricula/WebMatricula.csproj",
+  "projectFilePath": "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatricula3/WebMatricula/WebMatricula/WebMatricula.csproj",
   "expectedPackageFiles": [
     "/root/.nuget/packages/bouncycastle.netcore/1.8.3/bouncycastle.netcore.1.8.3.nupkg.sha512",
     "/root/.nuget/packages/google.protobuf/3.11.4/google.protobuf.3.11.4.nupkg.sha512",

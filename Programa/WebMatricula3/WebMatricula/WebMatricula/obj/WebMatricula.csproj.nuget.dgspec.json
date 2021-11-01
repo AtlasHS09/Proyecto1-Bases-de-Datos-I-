@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/andres/Documents/Bases de Datos/WebMatricula 3/WebMatricula/WebMatricula/WebMatricula.csproj": {}
+    "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatricula3/WebMatricula/WebMatricula/WebMatricula.csproj": {}
   },
   "projects": {
-    "/home/andres/Documents/Bases de Datos/WebMatricula 3/WebMatricula/WebMatricula/WebMatricula.csproj": {
+    "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatricula3/WebMatricula/WebMatricula/WebMatricula.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/andres/Documents/Bases de Datos/WebMatricula 3/WebMatricula/WebMatricula/WebMatricula.csproj",
+        "projectUniqueName": "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatricula3/WebMatricula/WebMatricula/WebMatricula.csproj",
         "projectName": "WebMatricula",
-        "projectPath": "/home/andres/Documents/Bases de Datos/WebMatricula 3/WebMatricula/WebMatricula/WebMatricula.csproj",
+        "projectPath": "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatricula3/WebMatricula/WebMatricula/WebMatricula.csproj",
         "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/home/andres/Documents/Bases de Datos/WebMatricula 3/WebMatricula/WebMatricula/obj/",
+        "outputPath": "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatricula3/WebMatricula/WebMatricula/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/root/.nuget/NuGet/NuGet.Config"
