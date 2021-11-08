@@ -1,0 +1,45 @@
+@model IEnumerable<WebMatriculaNew.Entities.ComprobanteMatricula>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Comprobante de Matricula de Estudiante | Grupos Matriculados</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaEstudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoGrupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreMateria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaProfesor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaEstudiante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoGrupo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreMateria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaProfesor)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

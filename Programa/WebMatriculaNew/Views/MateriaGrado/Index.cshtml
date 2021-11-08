@@ -1,0 +1,49 @@
+@model IEnumerable<WebMatriculaNew.Entities.MateriaGrado>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listado Materia / Grado</h1>
+
+<p>
+    <a asp-action="Create">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Codigo Materia Grado
+                <!--@Html.DisplayNameFor(model => model.NombreMateria)-->
+            </th>
+            <th>
+                Nombre de Materia
+                <!--@Html.DisplayNameFor(model => model.NombreMateria)-->
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoMateriaGrado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreMateria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodigoMateriaGrado">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.CodigoMateriaGrado">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodigoMateriaGrado">Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+@model IEnumerable<WebMatriculaNew.Entities.AsistenciaXGrupo>
+
+@{
+    ViewData["Title"] = "Asitencia x Grupo";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoGrupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaEstudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Porcentaje)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoGrupo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaEstudiante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Porcentaje)
+            </td>
+           <!-- <td>
+                <a asp-action="Edit" asp-route-id="@item.CodigoGrupo">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodigoGrupo">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodigoGrupo">Delete</a>
+                <a asp-action="AsistenciaXGrupo" asp-route-id="@item.CodigoGrupo">Asistencia x Grupo</a>
+            </td> -->
+        </tr>
+}
+    </tbody>
+</table>

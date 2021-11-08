@@ -1,0 +1,53 @@
+@model IEnumerable<WebMatriculaNew.Entities.Notum>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Notas</h1>
+
+<p>
+    <a asp-action="Create">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaEstudianteNavigation.CedulaEstudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoEvaluacionNavigation.CodigoEvaluacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoEvaluacionNavigation.Evaluacion1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resultado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaEstudianteNavigation.CedulaEstudiante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoEvaluacionNavigation.CodigoEvaluacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoEvaluacionNavigation.Evaluacion1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resultado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-CodigoEvaluacion="@item.CodigoEvaluacion" asp-route-CedulaEstudiante="@item.CedulaEstudiante">Editar</a> |
+                <a asp-action="Details" asp-route-CodigoEvaluacion="@item.CodigoEvaluacion" asp-route-CedulaEstudiante="@item.CedulaEstudiante">Detalle</a> |
+                <a asp-action="Delete" asp-route-CodigoEvaluacion="@item.CodigoEvaluacion" asp-route-CedulaEstudiante="@item.CedulaEstudiante">Borrar</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

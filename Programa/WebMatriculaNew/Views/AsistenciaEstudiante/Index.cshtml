@@ -1,0 +1,41 @@
+@model IEnumerable<WebMatriculaNew.Entities.AsistenciaEstudiante>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listado de Asistencia Estudiantes</h1>
+
+<p>
+    <a asp-action="Create">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaEstudianteNavigation.CedulaEstudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Porcentaje)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaEstudianteNavigation.CedulaEstudiante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Porcentaje)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CedulaEstudiante">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.CedulaEstudiante">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.CedulaEstudiante">Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

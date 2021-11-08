@@ -1,0 +1,57 @@
+@model WebMatriculaNew.Entities.CursoProfesor
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Borrar</h1>
+
+<h3>Esta seguro de Borrarlo?</h3>
+<div>
+    <h4>Curso Profesor/ Horario de Clases</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CodigoCurso)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CodigoCurso)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreCurso)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombreCurso)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Aula)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Aula)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PeriodoLectivo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PeriodoLectivo.EstadoCurso)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProfesorNavigation.CedulaProfesor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProfesorNavigation.CedulaProfesor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProfesorNavigation.MateriaImpartida)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProfesorNavigation.MateriaImpartida)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CodigoCurso" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Regresar a la Lista</a>
+    </form>
+</div>

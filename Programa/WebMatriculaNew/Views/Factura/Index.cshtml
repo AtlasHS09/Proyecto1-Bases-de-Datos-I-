@@ -1,0 +1,65 @@
+@model IEnumerable<WebMatriculaNew.Entities.Factura>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listado de Facturas</h1>
+
+<p>
+    <a asp-action="Create">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CedulaPadre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Periodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ano)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula.CedulaEstudiante)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CedulaPadre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Periodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ano)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula.CedulaEstudiante)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CedulaPadre">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.CedulaPadre">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.CedulaPadre">Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

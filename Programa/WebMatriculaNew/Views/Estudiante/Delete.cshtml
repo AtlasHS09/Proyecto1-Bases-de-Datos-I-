@@ -1,0 +1,67 @@
+@model WebMatriculaNew.Entities.Estudiante
+
+@{ ViewData["Title"] = "Delete"; }
+
+<h1>Borrar</h1>
+
+<h3>Esta seguro de Borrarlo?</h3>
+<div>
+    <h4>Estudiante</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Cedula Estudiante
+            <!-- @Html.DisplayNameFor(model => model.GradosCursados)-->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CedulaEstudiante)
+        </dd>
+        <dt class="col-sm-2">
+           Nombre Completo
+            <!-- @Html.DisplayNameFor(model => model.CedulaEstudianteNavigation.NombreCompleto)-->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CedulaEstudianteNavigation.NombreCompleto)
+        </dd>
+        <dt class="col-sm-2">
+            Grado
+            <!-- @Html.DisplayNameFor(model => model.GradosCursados)-->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GradosCursados)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Periodo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Periodo)
+        </dd>
+        <dt class="col-sm-2">
+            Curso Actual
+            <!--@Html.DisplayNameFor(model => model.CursoActual)-->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CursoActual)
+        </dd>
+        <dt class="col-sm-2">
+            Estado periodo
+            <!--@Html.DisplayNameFor(model => model.EstadoPeriodo)-->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EstadoPeriodo)
+        </dd>
+        <dt class="col-sm-2">
+            Padre
+            <!--@Html.DisplayNameFor(model => model.CedulaPadreNavigation)-->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CedulaPadreNavigation.CedulaPadre)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CedulaEstudiante" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Regresar a la Lista</a>
+    </form>
+</div>

@@ -1,0 +1,92 @@
+@model IEnumerable<WebMatriculaNew.Entities.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listadode Usuarios</h1>
+
+<p>
+    <a asp-action="Create">Crear Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Cedula
+                <!-- @Html.DisplayNameFor(model => model.Cedula) -->
+            </th>
+            <th>
+                Nombre Completo
+                <!-- @Html.DisplayNameFor(model => model.NombreCompleto) -->
+            </th>
+            <th>
+                Sexo
+                <!--@Html.DisplayNameFor(model => model.Sexo)-->
+            </th>
+            <th>
+                Fecha Nacimiento
+                <!--@Html.DisplayNameFor(model => model.FechaNacimiento)-->
+            </th>
+            <th>
+                Edad
+                <!---@Html.DisplayNameFor(model => model.Edad)-->
+            </th>
+            <th>
+                Provincia
+                <!--@Html.DisplayNameFor(model => model.Provincia)-->
+            </th>
+            <th>
+                Residencia
+                <!--@Html.DisplayNameFor(model => model.Residencia)-->
+            </th>
+            <th>
+                Telefono
+                <!-- @Html.DisplayNameFor(model => model.Telefono)-->
+            </th>
+            <th>
+                Fecha de Creacion
+                <!-- @Html.DisplayNameFor(model => model.FechaCreacion)-->
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provincia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Cedula">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Cedula">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.Cedula">Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
