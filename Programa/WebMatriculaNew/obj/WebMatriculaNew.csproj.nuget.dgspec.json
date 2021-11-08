@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatriculaNew/WebMatriculaNew.csproj": {}
+    "/Users/lorena.portillo/Projects/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj": {}
   },
   "projects": {
-    "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatriculaNew/WebMatriculaNew.csproj": {
+    "/Users/lorena.portillo/Projects/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatriculaNew/WebMatriculaNew.csproj",
+        "projectUniqueName": "/Users/lorena.portillo/Projects/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj",
         "projectName": "WebMatriculaNew",
-        "projectPath": "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatriculaNew/WebMatriculaNew.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/home/andres/Documents/Bases de Datos/Proyecto1-Bases-de-Datos-I-/Programa/WebMatriculaNew/obj/",
+        "projectPath": "/Users/lorena.portillo/Projects/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj",
+        "packagesPath": "/Users/lorena.portillo/.nuget/packages/",
+        "outputPath": "/Users/lorena.portillo/Projects/WebMatriculaNew/WebMatriculaNew/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/Users/lorena.portillo/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.402/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.402/RuntimeIdentifierGraph.json"
         }
       }
     }

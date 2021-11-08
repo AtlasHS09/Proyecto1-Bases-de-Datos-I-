@@ -168,7 +168,9 @@ namespace WebMatriculaNew.Controllers
                 using (var command = conn.CreateCommand())
                 {
                     string query = "select e.CedulaEstudiante, m.periodoMatricular, m.ano, m.montoMatricula from matricula as m inner join estudiante as e" +
-                    " inner join padre as p where p.CedulaPadre = e.cedulaPadre and e.cedulaEstudiante = m.cedulaEstudiante and e.cedulaPadre = " + id;
+                    " inner join padre as p where p.CedulaPadre = e.cedulaPadre and e.cedulaEstudiante = m.cedulaEstudiante and "+
+                    " e.cedulaEstudiante not in (select cedulaEstudiante from factura)" +
+                    " and e.cedulaPadre = " + id;
                             
 
                     command.CommandText = query;
@@ -176,14 +178,7 @@ namespace WebMatriculaNew.Controllers
 
                     if (reader.HasRows)
                     {
-                        /*
-                         *  cedulaPadre int NOT NULL CHECK (cedulaPadre > 0),
-                            periodo int NOT NULL,
-                            ano int NOT NULL,
-                            fechaPago date NOT NULL,
-                            montoTotal DECIMAL(13, 4) NOT NULL,
-                            cedulaEstudiante int NOT NULL,
-                         */
+
                         while (await reader.ReadAsync())
                         {
                             var eg = new Factura
