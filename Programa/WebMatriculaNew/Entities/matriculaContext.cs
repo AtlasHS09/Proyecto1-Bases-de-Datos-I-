@@ -46,8 +46,6 @@ namespace WebMatriculaNew.Entities
         public virtual DbSet<Top15Grupo> Top15Grupos { get; set; }
         public virtual DbSet<ReprobacionGrupo> ReprobacionGrupos { get; set; }
 
-        //public virtual DbSet<PopulationModel> PopulationModels { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
