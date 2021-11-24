@@ -1,0 +1,54 @@
+<title>@ViewData["Title"] - Promedio por Grupo - Profesores</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div id="chart_div"></div>
+<script type="text/javascript">google.charts.load('current', {
+        packages: ['corechart', 'bar']
+    });
+    google.charts.setOnLoadCallback(LoadData);
+
+    function LoadData() {
+        $.ajax({
+
+            url: 'PromedioXGrupoXProfesor/CuadroPromedio',
+            dataType: "json",
+            type: "GET",
+            error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                toastr.error(err.message);
+            },
+            success: function(data) {
+                Grafico(data);
+                return false;
+            }
+        });
+        return false;
+    }
+
+    function Grafico(data) {
+        var dataArray = [
+            ['Promedio', 'Grupo por Profesor']
+        ];
+        $.each(data, function(i, item) {
+            dataArray.push([item.cedula, item.aumento]);
+        });
+        var data = google.visualization.arrayToDataTable(dataArray);
+        var options = {
+            title: 'Promedio - Grupo ',
+            chartArea: {
+                width: '50%'
+            },
+            colors: ['#b0120a', '#7b1fa2'],
+            hAxis: {
+                title: 'Grupo/Profesor',
+                minValue: 0
+            },
+            vAxis: {
+                title: 'Promedio'
+            }
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+        return false;
+    }</script>

@@ -1,0 +1,47 @@
+@model IEnumerable<WebMatriculaNew.Entities.Cobro>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MensualidadesPagadas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadIngresada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MensualidadesPagadas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadIngresada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula.CedulaEstudiante)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

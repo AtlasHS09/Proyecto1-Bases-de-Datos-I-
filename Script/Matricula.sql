@@ -1,6 +1,6 @@
--- Lermith Biarreta Portillo y Adri�n Herrera Segura
+-- Lermith Biarreta Portillo y Adrian Herrera Segura
 
--- Base de datos que administra la informaci�n de un colegio
+-- Base de datos que administra la informacion de un colegio
 -- Matriculas, mensualidades,  horarios, clases, profesores, etc.
 
 DROP DATABASE IF EXISTS matricula;
@@ -8,8 +8,9 @@ create database matricula;
 
 use matricula;
 
+------------------------------------------ CREACIÓN DE TABLAS --------------------------------------------------------
 
-
+-- Tabla que crea un usuario generalizado en la base de datos
 create table usuario
 (
     cedula int NOT NULL CHECK (cedula > 0),
@@ -24,7 +25,7 @@ create table usuario
     PRIMARY KEY (cedula)
 );
 
-
+-- Tabla que se basa en la información de la tabla usuario y le añade nueva información para crear un profesor
 create table profesor
 (
     cedulaProfesor int,
@@ -34,7 +35,7 @@ create table profesor
     FOREIGN KEY (cedulaProfesor) REFERENCES usuario(cedula)
 );
 
-
+-- Tabla que define una materia para un grado en concreto
 create table materiaGrado
 (
     codigoMateriaGrado int NOT NULL, 
@@ -43,21 +44,7 @@ create table materiaGrado
     PRIMARY KEY (codigoMateriaGrado)
 );
 
-create table grupo
-(
-    codigoGrupo int NOT NULL CHECK (codigoGrupo > 0),
-    periodo int NOT NULL CHECK (periodo > 0),
-    cupo int NOT NULL CHECK (cupo > 0),
-    materiaGrado int NOT NULL,
-    notaMinima int NOT NULL CHECK (notaMinima > 0),
-    cedulaProfesor int,
-    estado varchar(30) NOT NULL,
-    PRIMARY KEY (codigoGrupo),
-    FOREIGN KEY (cedulaProfesor) REFERENCES profesor(cedulaProfesor),
-    FOREIGN KEY (materiaGrado) REFERENCES materiaGrado(codigoMateriaGrado)
-);
-
-
+-- Tabla que se basa en la información de la tabla usuario y le añade nueva información para crear un padre
 create table padre
 (
     cedulaPadre int NOT NULL,
@@ -70,68 +57,60 @@ create table padre
     FOREIGN KEY (cedulaPadre) REFERENCES usuario(cedula)
 );
 
+-- Tabla usada para inicializar un nuevo periodo lectivo dentro del centro educativo
+create table periodoLectivo
+(
+    numeroPeriodo int NOT NULL CHECK (numeroPeriodo > 0),
+    anno int NOT NULL CHECK (anno > 1999),
+    fechaInicio date NOT NULL,
+    fechaFinal date NOT NULL,
+    estadoCurso varchar(20),
+    PRIMARY KEY (numeroPeriodo, anno)
+);
+
+-- Tabla que inicializa un grupo
+create table grupo
+(
+    codigoGrupo int NOT NULL CHECK (codigoGrupo > 0),
+    periodo int NOT NULL CHECK (periodo > 0),
+    cupo int NOT NULL CHECK (cupo > 0),
+    materiaGrado int NOT NULL,
+    notaMinima int NOT NULL CHECK (notaMinima > 0),
+    nombreCurso varchar(20) NOT NULL,
+    anno int NOT NULL,
+    aula int NOT NULL CHECK (aula > 0),
+    cedulaProfesor int,
+    estado varchar(30) NOT NULL,
+    PRIMARY KEY (codigoGrupo),
+    FOREIGN KEY (periodo) REFERENCES periodoLectivo(numeroPeriodo),
+    FOREIGN KEY (cedulaProfesor) REFERENCES profesor(cedulaProfesor),
+    FOREIGN KEY (materiaGrado) REFERENCES materiaGrado(codigoMateriaGrado)
+);
+
+-- Tabla que se basa en la información de la tabla usuario y le añade nueva información para crear un estudiante
 create table estudiante
 (
-    cedulaEstudiante int,
+    cedulaEstudiante int NOT NULL,
     gradosCursados int NOT NULL CHECK (gradosCursados > 0),
     periodo int NOT NULL CHECK (periodo > 0),
     cursoActual varchar(50) NOT NULL,
     estadoPeriodo varchar(20) NOT NULL,
     cedulaPadre  int NOT NULL,
+    grupo int,
     PRIMARY KEY (cedulaEstudiante),
     FOREIGN KEY (cedulaEstudiante) REFERENCES usuario(cedula),
-    FOREIGN KEY (cedulaPadre) REFERENCES padre(cedulaPadre)
-);
-
-create table estudianteGrupo
-(
-    cedulaEstudiante int,
-    grupo int NOT NULL,
-    PRIMARY KEY (cedulaEstudiante,grupo),
-    FOREIGN KEY (cedulaEstudiante) REFERENCES usuario(cedula),
+    FOREIGN KEY (cedulaPadre) REFERENCES padre(cedulaPadre),
     FOREIGN KEY (grupo) REFERENCES grupo(codigoGrupo)
 );
 
-create table asistenciaEstudiante
+-- Tabla usada para contar las asistencias de los estudiantes dentro de un grupo 
+create table inasistenciaEstudiante
 (
     cedulaEstudiante int NOT NULL,
-    porcentaje int,
-    PRIMARY KEY (cedulaEstudiante),
+    fecha date NOT NULL,
+    PRIMARY KEY (cedulaEstudiante, fecha),
     FOREIGN KEY (cedulaEstudiante) references estudiante(cedulaEstudiante)
 );
-
-create table asistenciaProfesor
-(
-    cedulaProfesor int NOT NULL,
-    porcentaje int,
-    PRIMARY KEY (cedulaProfesor),
-    FOREIGN KEY (cedulaProfesor) references profesor(cedulaProfesor)
-);
-
-create table periodoLectivo
-(
-    numeroPeriodo int NOT NULL CHECK (numeroPeriodo > 0),
-    ano int NOT NULL CHECK (ano > 1999),
-    fechaInicio date NOT NULL,
-    fechaFinal date NOT NULL,
-    estadoCurso varchar(20) NOT NULL,
-    PRIMARY KEY (numeroPeriodo, ano)
-);
-
-create table cursoProfesor
-(
-    codigoCurso int NOT NULL,
-    nombreCurso varchar(20) NOT NULL,
-    periodo int NOT NULL,
-    ano int NOT NULL,
-    aula int NOT NULL CHECK (aula > 0),
-    profesor int NOT NULL,
-    PRIMARY KEY (codigoCurso),
-    FOREIGN KEY (periodo, ano) REFERENCES periodoLectivo(numeroPeriodo, ano),
-    FOREIGN KEY (profesor) REFERENCES profesor(cedulaProfesor)
-
-);
-
 
 -- Tabla de posee la tabla de evaluaciones de los cursos del colegio
 
@@ -140,13 +119,12 @@ create table evaluacion
     codigoEvaluacion int NOT NULL, 
     evaluacion varchar(30) NOT NULL,
     porcentaje int NOT NULL CHECK (porcentaje BETWEEN 1 AND 100),
-    curso int,
+    grupo int,
     PRIMARY KEY (codigoEvaluacion),
-    FOREIGN KEY (curso) REFERENCES cursoProfesor(CodigoCurso)
+    FOREIGN KEY (grupo) REFERENCES grupo(codigoGrupo)
 );
 
-
-
+-- Tabla creda para asignarle una nota a cada estudiante dentro de un curso
 create table nota
 (
     codigoEvaluacion int NOT NULL,
@@ -157,76 +135,227 @@ create table nota
     FOREIGN KEY (cedulaEstudiante) REFERENCES estudiante(cedulaEstudiante)
 );
 
-
+-- Tabla creada para inicializar la matricula de un estudiante dentro del centro educativo
 create table matricula
 (
     cedulaEstudiante int NOT NULL CHECK (cedulaEstudiante > 0),
     periodoMatricular int NOT NULL CHECK (periodoMatricular > 0),
-    ano int NOT NULL CHECK (ano > 0),
-    cobrosPendientes int NOT NULL CHECK (cobrosPendientes > 0),
+    anno int NOT NULL CHECK (anno > 0),
+    cobrosPendientes int NOT NULL CHECK (cobrosPendientes > -1),
     montoMatricula DECIMAL(13, 4) NOT NULL,
-    PRIMARY KEY(cedulaEstudiante, periodoMatricular, ano)
+    PRIMARY KEY (cedulaEstudiante, periodoMatricular, anno),
+    FOREIGN KEY (cedulaEstudiante) REFERENCES estudiante(cedulaEstudiante),
+    FOREIGN KEY (periodoMatricular, anno) REFERENCES periodoLectivo(numeroPeriodo, anno)
 );
 
-
+-- Tabla creada para generar una factura a un padre cuando paga las mensualidades de un estudiante
 create table factura
 (
     cedulaPadre int NOT NULL CHECK (cedulaPadre > 0),
     periodo int NOT NULL,
-    ano int NOT NULL,
+    anno int NOT NULL,
     fechaPago date NOT NULL,
     montoTotal DECIMAL(13, 4) NOT NULL,
     cedulaEstudiante int NOT NULL,
     PRIMARY KEY (cedulaPadre),
-    FOREIGN KEY (cedulaEstudiante, periodo, ano) REFERENCES matricula(cedulaEstudiante, periodoMatricular, ano)
+    FOREIGN KEY (cedulaEstudiante, periodo, anno) REFERENCES matricula(cedulaEstudiante, periodoMatricular, anno)
 );
 
+-- Tabla creada para mantener un historial de los Salarios de un profesor
 
+create table historialSalarios
+(
+	cedulaProfesor int NOT NULL,
+	salario int NOT NULL,
+	fecha date NOT NULL,
+	PRIMARY KEY(cedulaProfesor, fecha),
+	FOREIGN KEY (cedulaProfesor) REFERENCES profesor(cedulaProfesor)
+);
 
-insert into usuario (cedula, nombreCompleto, sexo, fechaNacimiento, edad, provincia,residencia,telefono, fechaCreacion ) 
-values (20203354, 'Lermith Biarreta', 'Masculino', '1999-11-05', 50, 'Alajuela', 'Mi direccion', '234234', '2021-05-20');
+-- Tabla creada para generar Cobros de mensualidades
 
-insert into usuario (cedula, nombreCompleto, sexo, fechaNacimiento, edad, provincia,residencia,telefono, fechaCreacion ) 
-values (39393939, 'Adrian Herrera', 'Masculino', '2001-11-05', 50, 'Alajuela', 'Mi direccion', '234234', '2021-05-20');
+create table cobros
+(
+	cedulaEstudiante int NOT NULL,
+	periodo int NOT NULL,
+	mensualidadesPagadas int NOT NULL,
+	cantidadIngresada DECIMAL(13, 4) NOT NULL,
+	fecha date NOT NULL,
+	anno int NOT NULL,
+	PRIMARY KEY(cedulaEstudiante, fecha),
+	FOREIGN KEY (cedulaEstudiante, periodo, anno) REFERENCES matricula(cedulaEstudiante, periodoMatricular, anno)
+);
 
-insert into usuario (cedula, nombreCompleto, sexo, fechaNacimiento, edad, provincia,residencia,telefono, fechaCreacion ) 
-values (37374747, 'Pedro Perez', 'Masculino', '2001-11-05', 50, 'Alajuela', 'Mi direccion', '234554', '2021-05-20');
+---------------------- CREACIÓN DE FUNCIONES Y PROCEDIMIENTOS ALMACENADOS ---------------------------------------------------
 
+-- Función que calcula los montos pendientes de la matricula de cada estudiante a la hora de que un padre empiece el proceso de matricula
 
-insert into profesor (cedulaProfesor, materiaImpartida, salario) values (20203354, 'Materia1', 20200);
+CREATE DEFINER=`root`@`localhost` TRIGGER `cobrosDeMatriculasCompletos` BEFORE INSERT ON `cobros` FOR EACH ROW update new inner join matricula on new.cedulaEstudiante = matricula.cedulaEstudiante  
+           set matricula.cobrosPendientes = (matricula.cobrosPendientes - 1) 
+           where matricula.cedulaEstudiante = new.cedulaEstudiante
 
-insert into materiaGrado (codigoMateriaGrado, nombreMateria, grado) 
-values (0001, 'Materia1', 7);
+-- Función que anota de salario de los profesores en el historial de salarios
+       
+CREATE DEFINER=`root`@`localhost` TRIGGER `actualizarSalarioProfesor` BEFORE INSERT ON `historialSalarios` FOR EACH ROW update new inner join profesor on new.cedulaProfesor = profesor.cedulaProfesor  
+           set profesor.salario = new.salario
+           where new.cedulaProfesor = profesor.cedulaProfesor
 
-insert into grupo (codigoGrupo, periodo, cupo, materiaGrado, notaMinima, cedulaProfesor, estado) 
-values (0001, 11, 30, 001, 70, 20203354, 'Abierto');
+-- Función permite editar el salario de los profesores a uno diferente
 
-insert into periodoLectivo (numeroPeriodo, ano, fechaInicio, fechaFinal, estadoCurso) 
-values (11, 2022, '2021-11-05', '2022-03-05', 'Pendiente');
+CREATE DEFINER=`root`@`localhost` PROCEDURE `matricula`.`aumentoProfesores`()
+BEGIN
 
-insert into padre (cedulaPadre, profesion, conyugue, telefonoConyugue, costoMensualidad, pagosRealizados) 
-values (37374747, 'Cirujana', 'Amanda Morales', '234234', 7000, 3);
+	select CAST(hs.cedulaProfesor AS CHAR) as cedula, max(hs.salario)-min(hs.salario) as aumento from historialSalarios2 as hs 
 
-insert into estudiante (cedulaEstudiante, gradosCursados, periodo, cursoActual, estadoPeriodo, cedulaPadre) 
-values (39393939, 8, 11, 7, 'Abierto', 37374747);
+	group by cedulaProfesor order by cedulaProfesor
+	limit 10;
+END
 
-insert into cursoProfesor (CodigoCurso, NombreCurso, periodo, ano, aula, profesor)
-values (7, 'Materia1', 11, 2022, 105, 20203354);
+-- Función que muestra la cantidad de estudiantes matriculados en total, por periodo y por grupo.
 
-insert into evaluacion (codigoEvaluacion, evaluacion, porcentaje, curso)
-values (001, 'Examen 1', 45, 7);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `matricula`.`CantidadEstudiantePeriodoGrupo`()
+BEGIN
+	select count(distinct m.cedulaEstudiante) as num, concat(cast(m.periodoMatricular as char), " - ",
+	cast(g.codigoGrupo as char)) as pg from matricula as m inner join grupo as g where m.periodoMatricular = g.periodo 
+	group by pg;
+END	
 
-insert into evaluacion (codigoEvaluacion, evaluacion, porcentaje, curso)
-values (002, 'Examen 2', 45, 7);
+-- Función que muestra el promedio total de rendimiento de los estudiantes de cada grupo, junto con el nombre del profesor
 
-insert into matricula (cedulaEstudiante, periodoMatricular, ano, cobrosPendientes, montoMatricula)
-values (39393939, 3, 2022, 3, 1500);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `matricula`.`promedioXGrupoXProfesor`()
+BEGIN
 
-insert into asistenciaEstudiante (cedulaEstudiante, porcentaje) 
-values (39393939, 80);
+	select AVG(n.resultado) as promedio, concat(CAST(ev.grupo AS CHAR), " - ", CAST(p.cedulaProfesor AS CHAR)) as gp
+	from nota as n inner join evaluacion as ev inner join grupo as g 
+	inner join profesor as p 
+	where n.codigoEvaluacion = ev.codigoEvaluacion 
+	and ev.grupo = g.codigoGrupo 
+	and g.cedulaProfesor = p.cedulaProfesor
+	group by gp;
 
-insert into nota (codigoEvaluacion, cedulaEstudiante, resultado) 
-values (001, 39393939, 80);
+END	
 
-insert into estudianteGrupo (cedulaEstudiante, grupo) 
-values (39393939, 001);
+-- Función que muestra los 10 padres con más pagos pendientes en el centro educativo.
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `matricula`.`Top10PadresDeuda`()
+BEGIN
+
+	select us.nombreCompleto as padre, sum(t1.deuda) as deuda from 
+	(select d.cedulaEstudiante as cedulaEstudiante, (d.pendiente - COALESCE(p.pagado, 0 )) as deuda from 
+	(select cedulaEstudiante, sum(montoMatricula)as pendiente from matricula
+	group by cedulaEstudiante ) as d
+	LEFT JOIN 
+	(select sum(cantidadIngresada) as pagado, cedulaEstudiante from cobros 
+	group by cedulaEstudiante) as p
+	on p.cedulaEstudiante = d.cedulaEstudiante) as t1 inner join estudiante as p on p.cedulaEstudiante= t1.cedulaEstudiante
+	inner join usuario as us on p.cedulaPadre = us.cedula 
+	group by padre 
+	order by deuda desc
+	limit 10;
+
+END
+
+-- Función que muestra la cantidad de estudiantes aprobados y reprobados de un curso una vez terminado un curso.
+
+CREATE PROCEDURE cantidadAprobadosReprobadosGP()
+BEGIN
+
+	select concat(cast(t3.grupo as char),'-', cast(t3.periodo as char)) as gp, t3.reprobado, t4.aprobado from 
+	(select t1.codigoGrupo as grupo, t1.periodo as periodo, COALESCE(reprobados, 0) as reprobado  from grupo as t1 left join 
+	(select g.codigoGrupo as grupo, g.periodo as periodo, count(resultado) as reprobados  
+	from grupo as g left join evaluacion ev on
+	g.codigoGrupo = ev.grupo left join nota as n on n.codigoEvaluacion = ev.codigoEvaluacion 
+	where resultado < g.notaMinima 
+	group by grupo, periodo
+	) 
+	as t2 on t1.codigoGrupo = t2.grupo and t1.periodo = t2.periodo) as t3
+	inner join 
+	(select t1.codigoGrupo as grupo, t1.periodo as periodo, COALESCE(aprobado, 0) as aprobado  from grupo as t1 left join 
+	(select g.codigoGrupo as grupo, g.periodo as periodo, count(resultado) as aprobado  
+	from grupo as g left join evaluacion ev on
+	g.codigoGrupo = ev.grupo left join nota as n on n.codigoEvaluacion = ev.codigoEvaluacion 
+	where resultado >= g.notaMinima 
+	group by grupo, periodo
+	) 
+	as t2 on t1.codigoGrupo = t2.grupo and t1.periodo = t2.periodo ) as t4 on t3.grupo = t4.grupo and t3.periodo = t4.periodo;
+
+END
+
+--Función que inserta el primer salario de los profesores en la base de datos y en el historial de salarios
+
+CREATE DEFINER=root@localhost TRIGGER primerSalario 
+BEFORE INSERT ON profesor FOR EACH ROW insert into historialSalarios2 (cedulaProfesor, salario, fecha) 
+values (new.cedulaProfesor, new.salario, now())
+
+-- Función que compara la cantidad de cobros pendientes y los facturados
+
+CREATE DEFINER=root@localhost PROCEDURE matricula.cobrosVsFacturados()
+BEGIN
+
+    select concat(cast(t1.grado as char),'-', cast(t1.periodo as char)) as gradoperiodo , sumacobros as cobros, sumaFacturados as facturados from 
+    (select gradosCursados as grado, e.periodo as periodo, COALESCE(sum(cantidadIngresada),0) as sumacobros
+    from estudiante as e left join cobros as c on e.cedulaEstudiante = c.cedulaEstudiante and e.periodo = c.periodo 
+    group by grado, periodo) as t1 inner join 
+
+    (select gradosCursados as grado, e.periodo as periodo, COALESCE(sum(montoTotal), 0) as sumaFacturados
+    from estudiante as e left join factura as c on e.cedulaEstudiante = c.cedulaEstudiante and e.periodo = c.periodo 
+    group by grado, periodo) as t2 on t1.grado = t2.grado and t1.periodo = t2.periodo;
+
+END
+
+--Función que calcula la cantidad de ingresos monetarios que ha tenido el centro educativo por periodo
+
+CREATE DEFINER=root@localhost PROCEDURE matricula.ventasCobrosPeriodo()
+BEGIN
+
+    select concat(cast(periodo as char),'-', cast(anno as char)) as gp, sum(cantidadIngresada) as          cobros from cobros
+    group by periodo, anno;
+
+END
+
+-- Función que imprime los 15 grupos con mayor porcentaje de aprobación
+
+CREATE DEFINER=root@localhost PROCEDURE matricula.top15GrupoPorcentajeAprobacion()
+BEGIN
+
+   select t1.grupo , t1.periodo , (t1.aprobado*100/t2.total) as porcentaje, us.NombreCompleto, mt.nombreMateria from 
+   (select g.codigoGrupo as grupo, g.periodo as periodo, count(resultado) as aprobado , g.cedulaProfesor, g.materiaGrado
+    from grupo as g left join evaluacion ev on
+    g.codigoGrupo = ev.grupo left join nota as n on n.codigoEvaluacion = ev.codigoEvaluacion 
+    where resultado >= g.notaMinima 
+    group by grupo, periodo, g.cedulaProfesor, g.materiaGrado) as t1
+    inner join 
+   ( select g.codigoGrupo as grupo, g.periodo as periodo, count(resultado) as total 
+    from grupo as g left join evaluacion ev on 
+    g.codigoGrupo = ev.grupo left join nota as n on n.codigoEvaluacion = ev.codigoEvaluacion
+    group by g.codigoGrupo, periodo) as t2 
+    on t1.grupo = t2.grupo and t1.periodo = t2.periodo inner join usuario as us 
+    on us.cedula = t1.cedulaProfesor 
+    inner join materiaGrado as mt on t1.materiaGrado = mt.codigoMateriaGrado 
+    order by porcentaje DESC 
+    limit 15;
+
+END
+
+-- Función que imprime el porcentaje de reprobación de cada grupo
+
+CREATE DEFINER=root@localhost PROCEDURE matricula.porcentajeReprobacionGrupo()
+BEGIN
+
+   select t1.grupo , t1.periodo , (t1.reprobado*100/t2.total) as porcentaje, us.NombreCompleto, mt.nombreMateria from 
+   (select g.codigoGrupo as grupo, g.periodo as periodo, count(resultado) as reprobado , g.cedulaProfesor, g.materiaGrado
+    from grupo as g left join evaluacion ev on
+    g.codigoGrupo = ev.grupo left join nota as n on n.codigoEvaluacion = ev.codigoEvaluacion 
+    where resultado < g.notaMinima 
+    group by grupo, periodo, g.cedulaProfesor, g.materiaGrado) as t1
+    inner join 
+   ( select g.codigoGrupo as grupo, g.periodo as periodo, count(resultado) as total 
+    from grupo as g left join evaluacion ev on 
+    g.codigoGrupo = ev.grupo left join nota as n on n.codigoEvaluacion = ev.codigoEvaluacion
+    group by g.codigoGrupo, periodo) as t2 
+    on t1.grupo = t2.grupo and t1.periodo = t2.periodo inner join usuario as us 
+    on us.cedula = t1.cedulaProfesor 
+    inner join materiaGrado as mt on t1.materiaGrado = mt.codigoMateriaGrado 
+    order by porcentaje DESC;
+
+END

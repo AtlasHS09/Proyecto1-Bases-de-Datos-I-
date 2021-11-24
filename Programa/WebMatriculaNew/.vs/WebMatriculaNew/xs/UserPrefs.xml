@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{F3FD47DB-283A-448F-88F0-BC040D99F057}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebMatriculaNew/Entities/matriculaContext.cs">
+    <Files>
+      <File FileName="WebMatriculaNew/appsettings.json" Line="11" Column="67" />
+      <File FileName="WebMatriculaNew/Startup.cs" Line="30" Column="13" />
+      <File FileName="WebMatriculaNew/Program.cs" Line="1" Column="1" />
+      <File FileName="WebMatriculaNew/appsettings.Development.json" />
+      <File FileName="WebMatriculaNew/Entities/matriculaContext.cs" Line="13" Column="12" />
+      <File FileName="WebMatriculaNew/Entities/Matricula.cs" />
+      <File FileName="WebMatriculaNew/Entities/MateriaGrado.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WebMatriculaNew" expanded="True">
+            <Node name="WebMatriculaNew" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Entities" expanded="True" />
+              <Node name="Views" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.WebMatriculaNew PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

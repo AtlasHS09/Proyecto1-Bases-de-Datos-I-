@@ -1,0 +1,52 @@
+@model IEnumerable<WebMatriculaNew.Entities.PeriodoLectivo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a> |
+    <a asp-area="" asp-controller="CantidadEstudiantes" asp-action="Index">Cantidad de Estudiantes por Periodo por Grupo</a> |
+    <a asp-area="" asp-controller="Ingreso" asp-action="Index">Ingresos por Grupo por Periodo</a> |
+    <a asp-area="" asp-controller="CantGrupo" asp-action="Index">Cantidad de por Grupo por Periodo</a> |
+    <a asp-area="" asp-controller="Venta" asp-action="Index">Distribucion de Ventas por Periodo</a> |
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaFinal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCurso)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCurso)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,99 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/andres/Documents/Bases de Datos/WebMatriculaNew 2/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj": {}
+  },
+  "projects": {
+    "/home/andres/Documents/Bases de Datos/WebMatriculaNew 2/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/andres/Documents/Bases de Datos/WebMatriculaNew 2/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj",
+        "projectName": "WebMatriculaNew",
+        "projectPath": "/home/andres/Documents/Bases de Datos/WebMatriculaNew 2/WebMatriculaNew/WebMatriculaNew/WebMatriculaNew.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/home/andres/Documents/Bases de Datos/WebMatriculaNew 2/WebMatriculaNew/WebMatriculaNew/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/root/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.20, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.5, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[1.3.14, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.403/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
