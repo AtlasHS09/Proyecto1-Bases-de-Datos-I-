@@ -1,0 +1,63 @@
+@model IEnumerable<WebMatriculaApp.Entities.Ponderado>
+
+@{
+    ViewData["Title"] = "Ponderado";
+}
+
+<h1>Promedio Ponderado del Estudiante</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id_estudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.promedioPonderado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidadGrupos)
+            </th>
+                        <th>
+                @Html.DisplayNameFor(model => model.gruposaprobados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.promedioGruposA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gruposreprobados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.promedioGruposR)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_estudiante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.promedioPonderado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidadGrupos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gruposaprobados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.promedioGruposA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gruposreprobados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.promedioGruposR)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

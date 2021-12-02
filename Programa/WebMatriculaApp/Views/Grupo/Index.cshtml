@@ -1,0 +1,72 @@
+@model IEnumerable<WebMatriculaApp.Entities.Grupo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotaMinima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdMateriaGradoNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProfesorNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PeriodoNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cupo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotaMinima)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdMateriaGradoNavigation.NombreMateria)
+            </td>
+            <td> 
+                @Html.DisplayFor(modelItem => item.IdProfesorNavigation.IdProfesor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PeriodoNavigation.IdPeriodo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdGrupo">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdGrupo">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdGrupo">Delete</a> |
+                <a asp-action="Aprobado" asp-route-id="@item.IdGrupo">Porcentaje de Aprobacion</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

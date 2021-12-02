@@ -1,0 +1,64 @@
+@model IEnumerable<WebMatriculaApp.Entities.PeriodoLectivo>
+
+@{ ViewData["Title"] = "Index"; }
+
+<h1>Informacion del Periodo</h1>
+<a style="font-weight: bold;" class="nav-link text-dark" asp-area="" asp-controller="Grupo" asp-action="Index">Grupos</a>
+<a style="font-weight: bold;" class="nav-link text-dark" asp-area="" asp-controller="MateriaGrado" asp-action="Index">Materias & Grados</a>
+
+
+<h1>Periodo Lectivo</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Periodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaFinal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Periodo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Anno)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaInicio)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaFinal)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Estado)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.IdPeriodo">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.IdPeriodo">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.IdPeriodo">Delete</a> | 
+        <a asp-action="Reprobado" asp-route-id="@item.IdPeriodo">Porcentaje de Reprobacion</a> |
+        <a asp-action="Cierre" asp-route-id="@item.IdPeriodo">Cierre de Periodo</a>
+</tr>
+}
+    </tbody>
+</table>

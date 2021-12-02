@@ -1,0 +1,33 @@
+@model IEnumerable<WebMatriculaApp.Entities.Deuda>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Top 10 Padres con mas Deudas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.padre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.padre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidad)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

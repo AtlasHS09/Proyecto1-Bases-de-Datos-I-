@@ -3,8 +3,8 @@ II Semestre 2021
 Lermith Biarreta Portillo (2020277475)
 Adrián Herrera Segura (2019081563)
 Proyecto Programado 1
-Fecha de Entrega: 04 de Octubre 2021
-Estatus de la entrega: Excelente
+Fecha de Entrega: 01 de Diciembre 2021
+Estatus de la entrega: Buena
 
 Link del GitHub:
 https://github.com/AtlasHS09/Proyecto1-Bases-de-Datos-I-

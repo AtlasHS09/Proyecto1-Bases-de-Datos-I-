@@ -1,0 +1,61 @@
+@model IEnumerable<WebMatriculaApp.Entities.Estudiante>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEstudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Periodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GradoActual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEstudianteNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPadre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEstudiante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Periodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradoActual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEstudianteNavigation.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPadre)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdEstudiante">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdEstudiante">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdEstudiante">Delete</a> |
+                <a asp-action="Ponderado" asp-route-id="@item.IdEstudiante">Promedio Ponderado</a> |  
+                <a asp-action="Ausencia" asp-route-id="@item.IdEstudiante">Numero de Ausencias</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,33 @@
+@model IEnumerable<WebMatriculaApp.Entities.Aumento>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Top 10 Profesores con Mayor Aumento de Salario</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.monto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.monto)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

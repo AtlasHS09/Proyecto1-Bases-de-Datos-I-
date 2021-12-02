@@ -1,0 +1,45 @@
+@model IEnumerable<WebMatriculaApp.Entities.GrupoAprobacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Top 15 Grupos con mayores Porcentajes de Aprobacion</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.grupoperiodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.porcentaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombreMateria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.grupoperiodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.porcentaje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreMateria)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

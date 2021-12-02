@@ -1,0 +1,54 @@
+<title>@ViewData["Title"] - Column Chart</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div id="chart_div"></div>
+<script type="text/javascript">google.charts.load('current', {
+        packages: ['corechart', 'bar']
+    });
+    google.charts.setOnLoadCallback(LoadData);
+
+    function LoadData() {
+        $.ajax({
+
+            url: 'PromedioXProfesorxGrupo/grafico',
+            dataType: "json",
+            type: "GET",
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                toastr.error(err.message);
+            },
+            success: function (data) {
+                grafico(data);
+                return false;
+            }
+        });
+        return false;
+    }
+
+    function grafico(data) {
+        var dataArray = [
+            ['profesorGrupo', 'promedio']
+        ];
+        $.each(data, function (i, item) {
+            dataArray.push([item.profesorGrupo, item.promedio]);
+        });
+        var data = google.visualization.arrayToDataTable(dataArray);
+        var options = {
+            title: ' PromedioXProfesorxGrupo',
+            chartArea: {
+                width: '50%'
+            },
+            colors: ['#b0120a', '#7b1fa2'],
+            hAxis: {
+                title: 'Profesor/Grupo',
+                minValue: 0
+            },
+            vAxis: {
+                title: 'Promedio'
+            }
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+        return false;
+    }</script>

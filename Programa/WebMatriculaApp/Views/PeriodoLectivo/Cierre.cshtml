@@ -1,0 +1,20 @@
+@model WebMatriculaApp.Entities.PeriodoLectivo
+
+@{
+    ViewData["Title"] = "Cierre";
+}
+
+<title>@ViewData["Title"] - Cierre de Periodo</title>
+
+<div id="chart_div"></div>
+
+<h4>Cierre</h4>
+
+<div>
+    <a asp-area="" asp-controller="PeriodoLectivo" asp-action="Index">Back to List</a>
+</div>
+<div>
+    <h1>@ViewBag.Message</h1>
+    <br/>
+    <h3>@ViewBag.Filas</h3>
+<div>
